@@ -16,6 +16,7 @@ class Product extends Model
         'part_number',
         'name',
         'description',
+        'raw_material',
         'unit',
         'defect_opportunities_per_unit',
         'standard_cycle_time',

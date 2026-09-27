@@ -7,12 +7,14 @@
             <h1 class="text-2xl font-bold tracking-tight text-slate-900">Jadwal & Lot Batch Produksi</h1>
             <p class="text-sm text-slate-500 mt-1">Daftar pesanan lot produksi, lini kerja, shift, dan pencatatan output aktual.</p>
         </div>
-        <a href="{{ route('admin.batches.create') }}" class="inline-flex items-center px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold rounded-lg shadow-sm transition-colors">
-            <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-            </svg>
-            + Buat Batch Baru
-        </a>
+        @if(auth()->user()->isAdmin() || auth()->user()->isEmployee())
+            <a href="{{ route('admin.batches.create') }}" class="inline-flex items-center px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold rounded-lg shadow-sm transition-colors">
+                <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                </svg>
+                + Buat Batch Baru
+            </a>
+        @endif
     </div>
 
     <!-- Filter Bar -->
@@ -92,9 +94,13 @@
                                         {{ $b->quality_inspections_count }} Kali QC
                                     </span>
                                 @else
-                                    <a href="{{ route('admin.inspections.create', ['batch_id' => $b->id]) }}" class="text-[11px] font-semibold text-amber-600 hover:underline">
-                                        + Periksa Sekarang
-                                    </a>
+                                    @if(auth()->user()->isAdmin() || auth()->user()->isStaff())
+                                        <a href="{{ route('admin.inspections.create', ['batch_id' => $b->id]) }}" class="text-[11px] font-semibold text-amber-600 hover:underline">
+                                            + Periksa Sekarang
+                                        </a>
+                                    @else
+                                        <span class="text-[11px] text-slate-400">Belum diuji</span>
+                                    @endif
                                 @endif
                             </td>
                             <td class="py-3 px-4">
@@ -104,7 +110,9 @@
                             </td>
                             <td class="py-3 px-4 text-right space-x-2">
                                 <a href="{{ route('admin.batches.show', $b) }}" class="text-xs font-medium text-slate-600 hover:text-emerald-600">Detail</a>
-                                <a href="{{ route('admin.batches.edit', $b) }}" class="text-xs font-medium text-slate-600 hover:text-emerald-600">Edit</a>
+                                @if(auth()->user()->isAdmin() || auth()->user()->isEmployee())
+                                    <a href="{{ route('admin.batches.edit', $b) }}" class="text-xs font-medium text-slate-600 hover:text-emerald-600">Edit</a>
+                                @endif
                             </td>
                         </tr>
                     @empty

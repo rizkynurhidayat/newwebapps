@@ -13,12 +13,16 @@
             <p class="text-sm text-slate-500 mt-1">Diproduksi tanggal {{ $batch->production_date?->format('d F Y') }} &bull; {{ $batch->shift?->value }}</p>
         </div>
         <div class="flex items-center space-x-2">
-            <a href="{{ route('admin.batches.edit', $batch) }}" class="px-3 py-2 bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 text-xs font-semibold rounded-lg shadow-sm">
-                Edit Batch
-            </a>
-            <a href="{{ route('admin.inspections.create', ['batch_id' => $batch->id]) }}" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold rounded-lg shadow-sm">
-                + Input Pemeriksaan QC
-            </a>
+            @if(auth()->user()->isAdmin() || auth()->user()->isEmployee())
+                <a href="{{ route('admin.batches.edit', $batch) }}" class="px-3 py-2 bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 text-xs font-semibold rounded-lg shadow-sm">
+                    Edit Batch
+                </a>
+            @endif
+            @if(auth()->user()->isAdmin() || auth()->user()->isStaff())
+                <a href="{{ route('admin.inspections.create', ['batch_id' => $batch->id]) }}" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold rounded-lg shadow-sm">
+                    + Input Pemeriksaan QC
+                </a>
+            @endif
         </div>
     </div>
 

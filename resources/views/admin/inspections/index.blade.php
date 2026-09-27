@@ -7,12 +7,14 @@
             <h1 class="text-2xl font-bold tracking-tight text-slate-900">Pemeriksaan Kualitas (QC Inspections)</h1>
             <p class="text-sm text-slate-500 mt-1">Rekap sampling mutu, perhitungan otomatis DPU, DPMO, Process Yield %, dan Tingkat Sigma.</p>
         </div>
-        <a href="{{ route('admin.inspections.create') }}" class="inline-flex items-center px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold rounded-lg shadow-sm transition-colors">
-            <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-            </svg>
-            + Input Pemeriksaan Baru
-        </a>
+        @if(auth()->user()->isAdmin() || auth()->user()->isStaff())
+            <a href="{{ route('admin.inspections.create') }}" class="inline-flex items-center px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold rounded-lg shadow-sm transition-colors">
+                <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                + Input Pemeriksaan Baru
+            </a>
+        @endif
     </div>
 
     <!-- Filter Bar -->

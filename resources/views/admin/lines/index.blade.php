@@ -7,12 +7,14 @@
             <h1 class="text-2xl font-bold tracking-tight text-slate-900">Lini Produksi & Mesin</h1>
             <p class="text-sm text-slate-500 mt-1">Stasiun kerja manufaktur, area perakitan, dan sel permesinan CNC.</p>
         </div>
-        <a href="{{ route('admin.lines.create') }}" class="inline-flex items-center px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold rounded-lg shadow-sm transition-colors">
-            <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-            </svg>
-            + Tambah Lini Baru
-        </a>
+        @if(auth()->user()->isAdmin())
+            <a href="{{ route('admin.lines.create') }}" class="inline-flex items-center px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold rounded-lg shadow-sm transition-colors">
+                <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                </svg>
+                + Tambah Lini Baru
+            </a>
+        @endif
     </div>
 
     <!-- Table of Lines -->
@@ -26,7 +28,9 @@
                         <th class="py-3 px-4">Lokasi Pabrik</th>
                         <th class="py-3 px-4">Total Batch</th>
                         <th class="py-3 px-4">Status</th>
-                        <th class="py-3 px-4 text-right">Aksi</th>
+                        @if(auth()->user()->isAdmin())
+                            <th class="py-3 px-4 text-right">Aksi</th>
+                        @endif
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-100 text-xs">
@@ -44,18 +48,20 @@
                                     {{ ucfirst($line->status) }}
                                 </span>
                             </td>
-                            <td class="py-3 px-4 text-right space-x-2">
-                                <a href="{{ route('admin.lines.edit', $line) }}" class="text-xs font-medium text-slate-600 hover:text-emerald-600">Edit</a>
-                                <form action="{{ route('admin.lines.destroy', $line) }}" method="POST" class="inline" onsubmit="return confirm('Hapus lini produksi ini?')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="text-xs font-medium text-rose-600 hover:text-rose-800">Hapus</button>
-                                </form>
-                            </td>
+                            @if(auth()->user()->isAdmin())
+                                <td class="py-3 px-4 text-right space-x-2">
+                                    <a href="{{ route('admin.lines.edit', $line) }}" class="text-xs font-medium text-slate-600 hover:text-emerald-600">Edit</a>
+                                    <form action="{{ route('admin.lines.destroy', $line) }}" method="POST" class="inline" onsubmit="return confirm('Hapus lini produksi ini?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="text-xs font-medium text-rose-600 hover:text-rose-800">Hapus</button>
+                                    </form>
+                                </td>
+                            @endif
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6" class="py-8 text-center text-slate-400">Belum ada lini produksi terdaftar.</td>
+                            <td colspan="{{ auth()->user()->isAdmin() ? 6 : 5 }}" class="py-8 text-center text-slate-400">Belum ada lini produksi terdaftar.</td>
                         </tr>
                     @endforelse
                 </tbody>

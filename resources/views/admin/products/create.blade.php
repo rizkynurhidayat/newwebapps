@@ -55,6 +55,13 @@
             </div>
 
             <div>
+                <label class="block text-xs font-semibold text-slate-700 mb-1">Bahan Baku (Raw Material)</label>
+                <input type="text" name="raw_material" value="{{ old('raw_material') }}" placeholder="Contoh: Plat Baja SPCC ketebalan 2.0 mm" 
+                       class="w-full text-xs rounded-lg border-slate-200 focus:border-emerald-500 focus:ring-emerald-500">
+                @error('raw_material') <span class="text-[11px] text-rose-500">{{ $message }}</span> @enderror
+            </div>
+
+            <div>
                 <label class="block text-xs font-semibold text-slate-700 mb-1">Deskripsi & Spesifikasi Produk</label>
                 <textarea name="description" rows="3" class="w-full text-xs rounded-lg border-slate-200 focus:border-emerald-500 focus:ring-emerald-500" placeholder="Keterangan material, toleransi dimensi, standar kualitas...">{{ old('description') }}</textarea>
                 @error('description') <span class="text-[11px] text-rose-500">{{ $message }}</span> @enderror

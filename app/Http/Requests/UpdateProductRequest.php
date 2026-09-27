@@ -20,6 +20,7 @@ class UpdateProductRequest extends FormRequest
             'part_number' => ['required', 'string', 'max:50', Rule::unique('products', 'part_number')->ignore($productId)],
             'name' => ['required', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
+            'raw_material' => ['nullable', 'string', 'max:255'],
             'unit' => ['required', 'string', 'max:20'],
             'defect_opportunities_per_unit' => ['required', 'integer', 'min:1', 'max:100'],
             'standard_cycle_time' => ['nullable', 'numeric', 'min:0'],

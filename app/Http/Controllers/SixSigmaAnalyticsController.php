@@ -67,6 +67,9 @@ class SixSigmaAnalyticsController extends Controller
         $avgSigma = $inspections->isNotEmpty() ? round($inspections->avg('sigma_level'), 2) : 0.0;
         $avgDpmo = $inspections->isNotEmpty() ? round($inspections->avg('dpmo'), 0) : 0;
 
+        // 5. Automated Conclusion (Sigma, Dominant Defect, SPC Control Status per Flowchart Step 9)
+        $conclusion = $this->sixSigmaCalculator->generateConclusion($avgSigma, $pareto, $spc);
+
         return view('admin.analytics.index', compact(
             'products',
             'lines',
@@ -80,7 +83,8 @@ class SixSigmaAnalyticsController extends Controller
             'totalDefects',
             'avgYield',
             'avgSigma',
-            'avgDpmo'
+            'avgDpmo',
+            'conclusion'
         ));
     }
 }

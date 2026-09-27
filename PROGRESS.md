@@ -1,14 +1,15 @@
 # MONITORING & PROGRESS PELAKSANAAN PROYEK
 ## Sistem Pemantauan Produksi & Pengendalian Cacat Produk (Six Sigma DMAIC)
+### Khusus: Manufaktur Bracket Seat Leg Mobil & Analisa Resiko Mesin Stamping Press
 
 Dokumen ini mencatat seluruh kemajuan pengerjaan proyek secara berkala, rinci, dan terstruktur. Dokumen ini menjadi acuan status saat ini, histori perubahan, serta panduan verifikasi/rollback jika terjadi kendala.
 
-**Terakhir Diperbarui:** 2026-09-12 21:40  
-**Status Keseluruhan:** ✅ Selesai 100% (Seluruh Modul Manufaktur & Six Sigma DMAIC Siap Digunakan)
+**Terakhir Diperbarui:** 2026-09-27 16:30  
+**Status Keseluruhan:** ✅ Selesai 100% (Seluruh Modul Manufaktur, Six Sigma DMAIC, K3 Mesin Press, serta RBAC & Manajemen Pengguna Aktif & Teruji)
 
 ---
 
-## 📊 Ringkasan Status Proyek (Roadmap Six Sigma)
+## 📊 Ringkasan Status Proyek (Roadmap Terintegrasi)
 
 | Bagian | Fase | Deskripsi | Status | Target / Selesai |
 |---|---|---|---|---|
@@ -22,6 +23,9 @@ Dokumen ini mencatat seluruh kemajuan pengerjaan proyek secara berkala, rinci, d
 | **FE**  | **Fase 8** | Modul Batch Produksi & Formulir Inspeksi QC Real-Time | ✅ Selesai | 2026-09-12 21:37 |
 | **FE**  | **Fase 9** | Analitik Mutu: Diagram Pareto 80/20, Fishbone 5M+1E, SPC p-Chart | ✅ Selesai | 2026-09-12 21:38 |
 | **FE**  | **Fase 10**| Modul Tindakan Perbaikan (CAPA), Laporan Mutu & Finalisasi | ✅ Selesai | 2026-09-12 21:40 |
+| **FE/BE**| **Fase 11**| Konteks Bracket Seat Leg Mobil, 5 CTQ, Skema DB & Kesimpulan Flowchart | ✅ Selesai | 2026-09-27 15:44 |
+| **FE/BE**| **Fase 12**| Modul Analisa Resiko Kerja Mesin Stamping Press (Poin 4-6 Skripsi) | ✅ Selesai | 2026-09-27 15:46 |
+| **FE/BE**| **Fase 13**| Pengetatan Hak Akses Peran (RBAC) & Modul Manajemen Pengguna Super Admin | ✅ Selesai | 2026-09-27 16:25 |
 
 *Keterangan Status: ⏳ Menunggu | 🔄 In Progress | ✅ Selesai | ⚠️ Perlu Review*
 
@@ -29,53 +33,62 @@ Dokumen ini mencatat seluruh kemajuan pengerjaan proyek secara berkala, rinci, d
 
 ## 📝 Detail Item Pekerjaan Per Fase
 
-### [Fase 1] Pembaruan Spesifikasi & Aturan Domain — ✅ Selesai
-- [x] **Step 1.1**: Perbarui [PROJECT_SPEC.md](file:///c:/laragon/www/newwebapps/PROJECT_SPEC.md) dengan domain Manufaktur & metodologi Six Sigma (DMAIC).
-- [x] **Step 1.2**: Sinkronkan aturan domain di [AGENTS.md](file:///c:/laragon/www/newwebapps/AGENTS.md) dan [CLAUDE.md](file:///c:/laragon/www/newwebapps/CLAUDE.md).
-- [x] **Step 1.3**: Perbarui dokumentasi ringkasan [README.md](file:///c:/laragon/www/newwebapps/README.md).
-- [x] **Step 1.4**: Inisialisasi roadmap pelacak [PROGRESS.md](file:///c:/laragon/www/newwebapps/PROGRESS.md).
+### [Fase 1 s/d 10] Fondasi Manufaktur Six Sigma (DMAIC) — ✅ Selesai
+- Telah terbangun arsitektur inti Laravel 12 + Tailwind CSS v4 + Alpine.js + Chart.js dengan logika DPU, DPO, DPMO, Yield %, Sigma Level, Pareto 80/20, Fishbone 5M+1E, dan SPC p-Chart.
 
-### [Fase 2] Skema Database, Enums, & Migrasi Manufaktur — ✅ Selesai
-- [x] **Step 2.1**: Buat Enums PHP 8.3 (`ProductionShift`, `BatchStatus`, `InspectionStage`, `InspectionResult`, `DefectSeverity`, `IshikawaCategory`, `CapaStatus`).
-- [x] **Step 2.2**: Buat migrasi tabel `products` (part number, nama, satuan, defect_opportunities_per_unit, cycle time).
-- [x] **Step 2.3**: Buat migrasi tabel `production_lines` (kode lini, nama, lokasi workshop, status).
-- [x] **Step 2.4**: Buat migrasi tabel `defect_categories` dan `defect_types` (kode, nama cacat, severity, default 5M+1E).
-- [x] **Step 2.5**: Buat migrasi tabel `production_batches` (lot number, product_id, line_id, supervisor_id, tanggal, shift, target_qty, actual_qty, status).
-- [x] **Step 2.6**: Buat migrasi tabel `quality_inspections` (inspection_number, batch_id, inspector_id, sample size N, passed qty, defect count D, dpu, dpmo, sigma_level, yield_percentage, stage, result).
-- [x] **Step 2.7**: Buat migrasi tabel `inspection_defects` (detail kuantitas cacat per jenis, kategori 5M+1E, catatan, bukti foto).
-- [x] **Step 2.8**: Buat migrasi tabel `capa_actions` (tindakan korektif & preventif, 5-Why root cause, PIC, due date, status).
-- [x] **Step 2.9**: Jalankan `php artisan migrate` dan verifikasi integritas skema di MySQL (`newwebapps` & `newwebapps_testing`).
+### [Fase 11] Penyesuaian Bracket Seat Leg Mobil, 5 CTQ & Kesimpulan Flowchart — ✅ Selesai
+- [x] **Step 11.1**: Analisis skema `databse.txt`: Menemukan kekurangan kritis ketiadaan tabel penghubung transaksi cacat per produksi (`inspection_defects`), duplikasi kata `tanggal`, dan ketiadaan kolom bahan baku.
+- [x] **Step 11.2**: Migrasi penambahan kolom `raw_material` (bahan baku) pada tabel `products`.
+- [x] **Step 11.3**: Konfigurasi katalog produk khusus **Bracket Seat Leg Mobil**:
+  - `BSL-7110-RH`: Bracket Seat Leg Front RH (Bahan: Plat Baja SPCC 2.0 mm, CTQ: 5, Cycle Time: 18s).
+  - `BSL-7120-LH`: Bracket Seat Leg Front LH (Bahan: Plat Baja SPCC 2.0 mm, CTQ: 5, Cycle Time: 18s).
+  - `BSL-8210-RR`: Bracket Seat Leg Rear Inner (Bahan: Plat Baja SPHC 2.3 mm, CTQ: 5, Cycle Time: 22s).
+- [x] **Step 11.4**: Konfigurasi **5 Jenis Cacat CTQ (Critical to Quality)**:
+  - `DEF-EXC`: `excrap` (Scrap terikut / slug mark stamping) — Major, Machine.
+  - `DEF-BLM`: `blank minus` (Potongan blank tekor / dimensi kurang) — Major, Material.
+  - `DEF-TRM`: `trim minus` (Garis pemotongan trimming tekor) — Major, Method.
+  - `DEF-DEF`: `deformasi` (Bengkok / geometri melintir) — Critical, Machine.
+  - `DEF-RST`: `karat` (Korosi permukaan plat besi) — Critical, Environment.
+- [x] **Step 11.5**: Implementasi Langkah 9 & 10 Flowchart ([flowchart.jpeg](file:///c:/laragon/www/newwebapps/flowchart.jpeg)):
+  - Menambahkan method `generateConclusion()` pada `SixSigmaCalculatorService`.
+  - Merancang Card Kesimpulan Otomatis pada tampilan `admin.analytics.index`: Evaluasi Tingkat Sigma, Cacat Dominan dari Pareto Vital Few, dan Status Kendali Proses SPC ($In\ Control$ / $Out\ of\ Control$) beserta tombol penanganan korektif (CAPA).
+  - Mengoptimalkan tata letak cetak dokumen (**Output Laporan Mutu**) dengan layout rapi.
 
-### [Fase 3] Eloquent Models, Relasi, & Seeder Data Manufaktur — ✅ Selesai
-- [x] **Step 3.1**: Buat Model `Product`, `ProductionLine`, `DefectCategory`, `DefectType` beserta casts & relasi.
-- [x] **Step 3.2**: Buat Model `ProductionBatch`, `QualityInspection`, `InspectionDefect`, `CapaAction` beserta casts & scopes.
-- [x] **Step 3.3**: Buat `ManufacturingSeeder` dengan katalog produk industri (Komponen Otomotif/Elektronik), lini mesin, jenis cacat riil, dan lot inspeksi dengan metrik Six Sigma.
-- [x] **Step 3.4**: Jalankan `php artisan db:seed` dan verifikasi data awal di database.
+### [Fase 12] Modul Analisa Resiko Kerja Mesin Stamping Press (Poin 4-6 [fitur.jpeg](file:///c:/laragon/www/newwebapps/fitur.jpeg)) — ✅ Selesai
+- [x] **Step 12.1**: Buat migrasi tabel `machine_risk_assessments` (hazard_code, hazard_name, machine_area, risk_description, likelihood, severity, risk_score, risk_level, control_measures, pic, status).
+- [x] **Step 12.2**: Buat Enum `RiskLevel` (Low, Medium, High, Extreme) dengan aturan konversi skor ($Risk = L \times S$):
+  - 1–4: Rendah (Low) — Hijau
+  - 5–9: Sedang (Medium) — Kuning
+  - 10–15: Tinggi (High) — Oranye
+  - 16–25: Ekstrem (Extreme) — Merah
+- [x] **Step 12.3**: Buat Model `MachineRiskAssessment` dengan hook otomatis kalkulasi $Risk = L \times S$ dan penentuan kategori risiko saat simpan/update.
+- [x] **Step 12.4**: Buat `RiskAssessmentService` untuk agregasi 3 KPI Dashboard K3 (Jumlah Bahaya, Jumlah Resiko, Tingkat Resiko) dan pembangunan matriks risiko 5x5.
+- [x] **Step 12.5**: Buat Form Request `StoreMachineRiskRequest` & `UpdateMachineRiskRequest`.
+- [x] **Step 12.6**: Buat `MachineRiskController` dan daftarkan rute `Route::resource('risks', MachineRiskController::class)->names('admin.risks')`.
+- [x] **Step 12.7**: Buat antarmuka pengguna Blade:
+  - `resources/views/admin/risks/index.blade.php`: Dashboard KPI (Jumlah Bahaya, Jumlah Resiko, Tingkat Resiko), Matriks 5x5, dan Tabel Analisa Bahaya & Resiko.
+  - `resources/views/admin/risks/create.blade.php` & `edit.blade.php`: Formulir input bahaya dengan kalkulator interaktif live (Alpine.js) yang seketika menghitung $Risk = Likelihood \times Severity$ dan menampilkan lencana Kategori Resiko.
+- [x] **Step 12.8**: Seeder data bahaya riil Mesin Stamping Press (titik jepit die press, scrap terpental, kebisingan tinggi, ceceran oli hidrolik, tepi plat tajam, sengatan listrik panel).
+- [x] **Step 12.9**: Buat automated tests (`MachineRiskAssessmentTest.php` dan `BracketSeatLegQualityTest.php`). Seluruh 28 test lolos (115 assertions).
+- [x] **Step 12.10**: Kompilasi aset Vite & Tailwind CSS v4 (`npm.cmd run build`) dan format rapi kode dengan Laravel Pint (`vendor/bin/pint --format agent`).
 
-### [Fase 4] SixSigmaCalculatorService & Logika Perhitungan Matematis — ✅ Selesai
-- [x] **Step 4.1**: Implementasi rumus matematis DPU, DPO, DPMO, Process Yield %, dan Tingkat Kualitas Sigma (1.5 $\sigma$ shift via Acklam rational approximation).
-- [x] **Step 4.2**: Implementasi algoritma agregasi & kumulatif Diagram Pareto (Prinsip 80/20).
-- [x] **Step 4.3**: Implementasi kalkulasi Statistical Process Control (p-Chart SPC: $\bar{p}$, UCL, LCL).
-- [x] **Step 4.4**: Implementasi agregasi matriks Fishbone (5M+1E).
-- [x] **Step 4.5**: Implementasi `ProductionService` untuk nomor unik dan transaksi inspeksi QC multi-tabel (`DB::transaction`).
-
-### [Fase 5] Form Requests, Controllers, Routing, & Pest Testing — ✅ Selesai
-- [x] **Step 5.1**: Buat Form Requests untuk validasi Batch, Inspeksi QC, Defect Types, dan CAPA.
-- [x] **Step 5.2**: Buat Controllers: `ManufacturingDashboardController`, `ProductController`, `ProductionLineController`, `DefectTypeController`, `ProductionBatchController`, `QualityInspectionController`, `SixSigmaAnalyticsController`, `CapaController`.
-- [x] **Step 5.3**: Daftarkan seluruh 46 rute di `routes/web.php`.
-- [x] **Step 5.4**: Buat dan jalankan Pest Feature Tests (`SixSigmaCalculatorTest`, `ManufacturingWorkflowTest`, `MasterDataTest`, `InventoryTransactionTest`, `AuthTest` - 21 passed, 76 assertions, 0 failed).
-- [x] **Step 5.5**: Jalankan `vendor/bin/pint --format agent` untuk standardisasi format kode.
-
-### [Fase 6 s/d 10] Frontend Admin & Visualisasi Mutu — ✅ Selesai
-- [x] **Step 6.1**: Setup tema manufaktur `layouts/admin.blade.php`, integrasi Chart.js, dan Dashboard eksekutif Six Sigma.
-- [x] **Step 7.1**: CRUD Produk Manufaktur & Titik Peluang Cacat (CTQ).
-- [x] **Step 7.2**: CRUD Lini Produksi & Mesin.
-- [x] **Step 7.3**: CRUD Taksonomi Cacat & Severity.
-- [x] **Step 8.1**: Manajemen Lot / Batch Produksi & Target Output.
-- [x] **Step 8.2**: Formulir Inspeksi QC dengan Kalkulator Six Sigma Real-Time (Alpine.js) & Sertifikat Hasil Uji.
-- [x] **Step 9.1**: Halaman Analitik DMAIC: Diagram Pareto (80/20 Vital Few), Fishbone (5M+1E), dan SPC p-Chart.
-- [x] **Step 10.1**: Modul Tindakan Perbaikan (CAPA) dengan 5-Why analysis dan update status implementasi.
-- [x] **Step 10.2**: Kompilasi final asset frontend Tailwind v4 + Alpine (`npm.cmd run build`).
+### [Fase 13] Pengetatan Hak Akses Peran (RBAC) & Manajemen Pengguna — ✅ Selesai
+- [x] **Step 13.1**: Validasi Form Request `StoreUserRequest` & `UpdateUserRequest`: Memastikan integritas data, validasi peran Enums, password opsional pada mode edit, serta proteksi larangan degradasi peran mandiri (*self-demotion*).
+- [x] **Step 13.2**: Pembuatan `UserController`: CRUD Akun Pengguna, filter pencarian & peran, KPI Ringkasan (Total Akun, Super Admin, QC Inspector, Supervisor), `toggleStatus`, serta pengaman mandiri (*self-deactivation* dan *self-deletion protection*).
+- [x] **Step 13.3**: Rekonfigurasi Rute `routes/web.php` Berbasis Middleware Strict RBAC:
+  - `role:admin`: Modul Manajemen Pengguna (`users.*`), mutasi master data (`products`, `lines`, `defects`), dan aksi hapus permanen (`batches.destroy`, `capa.destroy`, `risks.destroy`).
+  - `role:admin,staff`: Otorisasi input inspeksi QC (`inspections.create`, `inspections.store`, `inspections.calculate-preview`).
+  - `role:admin,employee`: Otorisasi pembuatan & pengeditan batch produksi (`batches.create`, `edit`) dan modul K3 bahaya mesin press (`risks.create`, `edit`).
+  - Akses baca (*read-only*) & CAPA kolaboratif terbuka untuk seluruh akun terautentikasi.
+  - Penyesuaian urutan rute (prioritas rute statis `/create` mendahului rute wildcard `/{parameter}`).
+- [x] **Step 13.4**: Antarmuka Blade Khusus Otorisasi:
+  - `resources/views/admin/users/index.blade.php`: KPI Scorecard Pengguna, Form Pencarian & Filter, Tabel Pengguna dengan avatar, badge role, tombol toggle status instan, dan aksi edit/hapus.
+  - `resources/views/admin/users/create.blade.php` & `edit.blade.php`: Formulir input & update akun berstandar Tailwind CSS v4.
+  - `resources/views/layouts/admin.blade.php`: Penambahan grup menu "Sistem & Otorisasi" (Manajemen Pengguna) khusus `isAdmin()`.
+  - Pengetatan tombol aksi pada seluruh modul (`batches`, `inspections`, `products`, `lines`, `defects`, `risks`) agar tombol aksi hanya tampil sesuai wewenang peran aktif.
+- [x] **Step 13.5**: Halaman Kesalahan Khusus HTTP 403 (`resources/views/errors/403.blade.php`) dengan desain profesional dan tombol pengarah kembali ke Dashboard.
+- [x] **Step 13.6**: Pembuatan Automated Test `tests/Feature/RolePermissionTest.php`: 5 uji fitur skenario batas otorisasi & keamanan user management lulus 100%. Total test suite: 33 tests lulus 100% (142 assertions).
+- [x] **Step 13.7**: Pembaruan Manual Pengguna (`PANDUAN_PENGGUNAAN.md` Bagian 1 Matriks RBAC & Bagian 10 Panduan Manajemen Pengguna).
 
 ---
 
@@ -84,4 +97,13 @@ Dokumen ini mencatat seluruh kemajuan pengerjaan proyek secara berkala, rinci, d
 | Tanggal & Waktu | Fase / Step | Tindakan yang Dilakukan | Hasil / Verifikasi |
 |---|---|---|---|
 | 2026-09-12 21:24 | Persiapan | Penyesuaian lingkup proyek sesuai revisi user ke domain Manufaktur & Six Sigma. | Disetujui melalui `implementation_plan.md`. |
-| 2026-09-12 21:25 | Fase 1 / Step 1.1–1.4 | Pembaruan menyeluruh file `PROJECT_SPEC.md`, `AGENTS.md`, `CLAUDE.md`, `README.md`, dan `PROGRESS.md`. | Seluruh dokumentasi single source of truth telah tersinkronisasi 100%. |
+| 2026-09-12 21:25 | Fase 1 / Step 1.1–1.4 | Pembaruan menyeluruh file `PROJECT_SPEC.md`, `AGENTS.md`, `CLAUDE.md`, `README.md`, dan `PROGRESS.md`. | Seluruh dokumentasi tersinkronisasi 100%. |
+| 2026-09-27 15:31 | Fase 11 / Persiapan | Pembuatan artifact rencana implementasi `bracket_seat_leg_six_sigma_plan.md` berdasarkan analisis `databse.txt`, `flowchart.jpeg`, dan `fitur.jpeg`. | Disetujui oleh pengguna via `[Approved]`. |
+| 2026-09-27 15:39 | Fase 11 / Step 11.2 & 12.1 | Migrasi database `add_raw_material_to_products_table` dan `create_machine_risk_assessments_table`. | Migrasi sukses di MySQL (Laragon). |
+| 2026-09-27 15:40 | Fase 11 & 12 / Models | Pembuatan `RiskLevel.php`, update `Product.php`, dan pembuatan `MachineRiskAssessment.php` & `RiskAssessmentService.php`. | Model & hook kalkulasi otomatis aktif. |
+| 2026-09-27 15:41 | Fase 11 / Seeder | Update `ManufacturingSeeder.php` dengan produk Bracket Seat Leg mobil, 5 jenis CTQ (excrap, blank minus, trim minus, deformasi, karat), 10 batch lot inspeksi, serta data bahaya mesin stamping press. | `php artisan db:seed` selesai 100%. |
+| 2026-09-27 15:42 | Fase 12 / Controller & View | Pembuatan `MachineRiskController`, update `web.php`, penambahan menu K3 di sidebar, pembuatan view index, create, edit Analisa Resiko, dan penambahan Card Kesimpulan Six Sigma. | Tampilan dashboard K3 & kesimpulan Six Sigma terintegrasi. |
+| 2026-09-27 15:45 | Fase 11 & 12 / Verification | Penulisan Feature Tests (`MachineRiskAssessmentTest`, `BracketSeatLegQualityTest`), perapian format kode dengan Pint (`vendor/bin/pint --format agent`), dan build asset frontend (`npm.cmd run build`). | 28 Pest feature tests lulus 100% (115 assertions). Aset Vite terkompilasi optimal. |
+| 2026-09-27 16:15 | Fase 13 / Persiapan | Perancangan rencana arsitektur pengetatan RBAC & modul Manajemen Pengguna via `rbac_and_user_management_plan.md`. | Disetujui oleh pengguna via `[Approved]`. |
+| 2026-09-27 16:25 | Fase 13 / Implementasi | Pembuatan `StoreUserRequest`, `UpdateUserRequest`, `UserController`, view `users/index, create, edit`, pembaruan sidebar dan tombol aksi per halaman, pembuatan `403.blade.php`, dan rute RBAC strict. | RBAC aktif pada layer UI & middleware. |
+| 2026-09-27 16:30 | Fase 13 / Verifikasi | Pembuatan `RolePermissionTest.php`, eksekusi seluruh test suite, formatting Pint, Vite build, dan update `PANDUAN_PENGGUNAAN.md`. | 33 Pest feature tests lulus 100% (142 assertions). Aset terkompilasi tanpa error. |

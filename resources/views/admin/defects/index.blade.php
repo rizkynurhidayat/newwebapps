@@ -7,12 +7,14 @@
             <h1 class="text-2xl font-bold tracking-tight text-slate-900">Taksonomi Cacat Produk (Defects)</h1>
             <p class="text-sm text-slate-500 mt-1">Daftar jenis cacat fisik, tingkat keparahan (*Severity*), dan kategori akar masalah (*Ishikawa 5M+1E*).</p>
         </div>
-        <a href="{{ route('admin.defects.create') }}" class="inline-flex items-center px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold rounded-lg shadow-sm transition-colors">
-            <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-            </svg>
-            + Tambah Jenis Cacat
-        </a>
+        @if(auth()->user()->isAdmin())
+            <a href="{{ route('admin.defects.create') }}" class="inline-flex items-center px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold rounded-lg shadow-sm transition-colors">
+                <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                </svg>
+                + Tambah Jenis Cacat
+            </a>
+        @endif
     </div>
 
     <!-- Filter & Search Bar -->
@@ -61,7 +63,9 @@
                         <th class="py-3 px-4">Keparahan (Severity)</th>
                         <th class="py-3 px-4">Kategori 5M+1E</th>
                         <th class="py-3 px-4">Frekuensi Temuan</th>
-                        <th class="py-3 px-4 text-right">Aksi</th>
+                        @if(auth()->user()->isAdmin())
+                            <th class="py-3 px-4 text-right">Aksi</th>
+                        @endif
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-100 text-xs">
@@ -86,18 +90,20 @@
                             <td class="py-3 px-4 font-mono font-medium {{ $type->inspection_defects_count > 0 ? 'text-slate-900' : 'text-slate-400' }}">
                                 {{ $type->inspection_defects_count }} kali
                             </td>
-                            <td class="py-3 px-4 text-right space-x-2">
-                                <a href="{{ route('admin.defects.edit', $type) }}" class="text-xs font-medium text-slate-600 hover:text-emerald-600">Edit</a>
-                                <form action="{{ route('admin.defects.destroy', $type) }}" method="POST" class="inline" onsubmit="return confirm('Hapus jenis cacat ini?')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="text-xs font-medium text-rose-600 hover:text-rose-800">Hapus</button>
-                                </form>
-                            </td>
+                            @if(auth()->user()->isAdmin())
+                                <td class="py-3 px-4 text-right space-x-2">
+                                    <a href="{{ route('admin.defects.edit', $type) }}" class="text-xs font-medium text-slate-600 hover:text-emerald-600">Edit</a>
+                                    <form action="{{ route('admin.defects.destroy', $type) }}" method="POST" class="inline" onsubmit="return confirm('Hapus jenis cacat ini?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="text-xs font-medium text-rose-600 hover:text-rose-800">Hapus</button>
+                                    </form>
+                                </td>
+                            @endif
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="7" class="py-8 text-center text-slate-400">Belum ada jenis cacat terdaftar.</td>
+                            <td colspan="{{ auth()->user()->isAdmin() ? 7 : 6 }}" class="py-8 text-center text-slate-400">Belum ada jenis cacat terdaftar.</td>
                         </tr>
                     @endforelse
                 </tbody>

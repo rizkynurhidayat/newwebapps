@@ -37,7 +37,7 @@
                     </div>
                     <div>
                         <span class="text-base font-bold tracking-tight text-white block leading-tight">SIX SIGMA MFG</span>
-                        <span class="text-[11px] text-emerald-400 font-medium tracking-wide">Pengendalian Cacat PT</span>
+                        <span class="text-[11px] text-emerald-400 font-medium tracking-wide">Bracket Seat Leg Mobil</span>
                     </div>
                 </a>
                 <button @click="sidebarOpen = false" class="lg:hidden text-slate-400 hover:text-white p-1">
@@ -108,7 +108,7 @@
                     <svg class="w-5 h-5 mr-3 {{ request()->routeIs('admin.lines.*') ? 'text-white' : 'text-slate-400' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
                     </svg>
-                    Lini Produksi & Mesin
+                    Lini Mesin Stamping Press
                 </a>
 
                 <a href="{{ route('admin.defects.index') }}" 
@@ -116,8 +116,30 @@
                     <svg class="w-5 h-5 mr-3 {{ request()->routeIs('admin.defects.*') ? 'text-white' : 'text-slate-400' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/>
                     </svg>
-                    Taksonomi Cacat Produk
+                    5 Jenis Cacat CTQ
                 </a>
+
+                <div class="pt-5 pb-2 text-[11px] font-semibold uppercase tracking-wider text-slate-400 px-3">K3 & Keselamatan Kerja</div>
+
+                <a href="{{ route('admin.risks.index') }}" 
+                   class="flex items-center px-3 py-2.5 rounded-lg text-sm font-medium transition-colors {{ request()->routeIs('admin.risks.*') ? 'bg-emerald-600 text-white shadow-sm shadow-emerald-500/20' : 'text-slate-300 hover:bg-slate-800/60 hover:text-white' }}">
+                    <svg class="w-5 h-5 mr-3 {{ request()->routeIs('admin.risks.*') ? 'text-white' : 'text-slate-400' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                    </svg>
+                    Analisa Resiko Mesin Press
+                </a>
+
+                @if(auth()->user()->isAdmin())
+                    <div class="pt-5 pb-2 text-[11px] font-semibold uppercase tracking-wider text-slate-400 px-3">Sistem & Otorisasi</div>
+
+                    <a href="{{ route('admin.users.index') }}" 
+                       class="flex items-center px-3 py-2.5 rounded-lg text-sm font-medium transition-colors {{ request()->routeIs('admin.users.*') ? 'bg-emerald-600 text-white shadow-sm shadow-emerald-500/20' : 'text-slate-300 hover:bg-slate-800/60 hover:text-white' }}">
+                        <svg class="w-5 h-5 mr-3 {{ request()->routeIs('admin.users.*') ? 'text-white' : 'text-slate-400' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
+                        </svg>
+                        Manajemen Pengguna
+                    </a>
+                @endif
             </nav>
 
             <!-- Current User Bar -->

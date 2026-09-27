@@ -226,6 +226,103 @@
             @endforeach
         </div>
     </div>
+
+    <!-- Section 4: Kesimpulan & Evaluasi Mutu Six Sigma (Sesuai Flowchart Sistem No 9 & 10) -->
+    <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6 space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 border-b border-slate-100 pb-3">
+            <div>
+                <div class="flex items-center space-x-2">
+                    <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-900 text-white uppercase font-mono">Tahap 9 & 10 Flowchart</span>
+                    <span class="text-xs text-slate-400">&bull;</span>
+                    <span class="text-xs text-slate-500 font-medium">Output Kesimpulan & Laporan</span>
+                </div>
+                <h2 class="text-base font-bold text-slate-900 mt-1">4. Kesimpulan Kualitas & Output Laporan Pengendalian Mutu</h2>
+                <p class="text-xs text-slate-500 mt-0.5">Ringkasan kesimpulan matematis otomatis: Tingkat Sigma, Cacat Dominan dari Pareto Vital Few, dan Status Kendali Proses SPC.</p>
+            </div>
+            <button onclick="window.print()" class="inline-flex items-center px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold rounded-lg shadow-sm transition-colors">
+                <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/>
+                </svg>
+                Cetak Output Laporan Lengkap
+            </button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <!-- Box 1: Tingkat Sigma -->
+            <div class="p-4 rounded-xl border border-slate-200 bg-slate-50/50 flex flex-col justify-between">
+                <div>
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">A. Nilai Sigma Terkalkulasi</span>
+                    <div class="flex items-center space-x-2 mt-2">
+                        <span class="text-3xl font-black text-slate-900 font-mono">{{ $conclusion['sigma_eval']['level'] }}</span>
+                        <span class="text-lg font-bold text-amber-500">&sigma;</span>
+                    </div>
+                    <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-bold border mt-2 {{ $conclusion['sigma_eval']['badge_color'] }}">
+                        {{ $conclusion['sigma_eval']['category'] }}
+                    </span>
+                    <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+                        {{ $conclusion['sigma_eval']['description'] }}
+                    </p>
+                </div>
+            </div>
+
+            <!-- Box 2: Cacat Dominan (Pareto Vital Few) -->
+            <div class="p-4 rounded-xl border border-slate-200 bg-slate-50/50 flex flex-col justify-between">
+                <div>
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">B. Cacat Dominan (Vital Few)</span>
+                    @if($conclusion['dominant_defect'])
+                        <div class="mt-2">
+                            <span class="text-xl font-extrabold text-rose-600 font-mono block">
+                                [{{ $conclusion['dominant_defect']['code'] }}] {{ $conclusion['dominant_defect']['name'] }}
+                            </span>
+                            <span class="text-xs text-slate-500 mt-1 block">
+                                Menyumbang <strong class="text-slate-800 font-mono">{{ $conclusion['dominant_defect']['percentage'] }}%</strong> dari seluruh temuan cacat ({{ $conclusion['dominant_defect']['count'] }} unit).
+                            </span>
+                            <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-rose-100 text-rose-800 mt-2">
+                                Keparahan: {{ ucfirst($conclusion['dominant_defect']['severity']) }}
+                            </span>
+                        </div>
+                    @else
+                        <span class="text-xs text-slate-400 italic block mt-3">Tidak ada data cacat terdeteksi.</span>
+                    @endif
+                </div>
+            </div>
+
+            <!-- Box 3: Status Kendali Proses SPC -->
+            <div class="p-4 rounded-xl border border-slate-200 bg-slate-50/50 flex flex-col justify-between">
+                <div>
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">C. Status Kendali Proses (p-Chart)</span>
+                    <div class="mt-2">
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold border {{ $conclusion['control_status']['badge_color'] }}">
+                            {{ $conclusion['control_status']['label'] }}
+                        </span>
+                        <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+                            {{ $conclusion['control_status']['note'] }}
+                        </p>
+                        @if(! $conclusion['control_status']['is_in_control'])
+                            <div class="mt-3">
+                                <a href="{{ route('admin.capa.create') }}" class="inline-flex items-center px-3 py-1.5 bg-rose-600 hover:bg-rose-700 text-white text-xs font-semibold rounded-lg shadow-sm">
+                                    + Buat Tiket Tindakan Korektif (CAPA)
+                                </a>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Rekomendasi Tindakan -->
+        <div class="p-4 rounded-xl bg-slate-900 text-slate-200">
+            <span class="text-xs font-bold uppercase tracking-wider text-emerald-400 block mb-2">Rekomendasi Tindak Lanjut Manajerial:</span>
+            <ul class="space-y-1.5 text-xs text-slate-300">
+                @foreach($conclusion['recommendations'] as $rec)
+                    <li class="flex items-start space-x-2">
+                        <span class="text-emerald-400 font-bold">&check;</span>
+                        <span>{{ $rec }}</span>
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+    </div>
 </div>
 
 @push('scripts')

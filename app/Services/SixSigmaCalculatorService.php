@@ -263,4 +263,90 @@ class SixSigmaCalculatorService
 
         return $matrix;
     }
+
+    /**
+     * Generate automated Six Sigma conclusions per Flowchart Step 9 & 10 (Sigma Level, Dominant Defect, Control Status, Action).
+     *
+     * @param  array{items: array, total_defects: int, vital_few_count: int}  $pareto
+     * @param  array{ucl: float, cl: float, lcl: float, points: array}  $spc
+     * @return array{
+     *     sigma_eval: array{level: float, category: string, badge_color: string, description: string},
+     *     dominant_defect: ?array{code: string, name: string, percentage: float, count: int, severity: string},
+     *     control_status: array{is_in_control: bool, label: string, badge_color: string, out_of_control_count: int, note: string},
+     *     recommendations: array<string>
+     * }
+     */
+    public function generateConclusion(float $avgSigma, array $pareto, array $spc): array
+    {
+        // 1. Sigma Level Evaluation
+        $sigmaEval = match (true) {
+            $avgSigma >= 6.0 => [
+                'level' => $avgSigma,
+                'category' => 'Kelas Dunia (World Class)',
+                'badge_color' => 'bg-emerald-100 text-emerald-800 border-emerald-300',
+                'description' => 'Proses sangat presisi dengan probabilitas cacat sangat minim (<= 3.4 DPMO).',
+            ],
+            $avgSigma >= 4.0 => [
+                'level' => $avgSigma,
+                'category' => 'Standar Industri Baik (Competitive)',
+                'badge_color' => 'bg-blue-100 text-blue-800 border-blue-300',
+                'description' => 'Kualitas memenuhi standar industri komponen otomotif. Pertahankan kestabilan.',
+            ],
+            $avgSigma >= 3.0 => [
+                'level' => $avgSigma,
+                'category' => 'Cukup / Perlu Pengendalian (Acceptable)',
+                'badge_color' => 'bg-amber-100 text-amber-800 border-amber-300',
+                'description' => 'Tingkat cacat masih berada dalam batas toleransi namun rentan terhadap fluktuasi proses.',
+            ],
+            default => [
+                'level' => $avgSigma,
+                'category' => 'Kritis / Butuh Perbaikan Segera (Critical)',
+                'badge_color' => 'bg-rose-100 text-rose-800 border-rose-300',
+                'description' => 'Tingkat kegagalan tinggi (< 3.0 Sigma). Tindakan korektif darurat wajib diprioritaskan.',
+            ],
+        };
+
+        // 2. Dominant Defect from Pareto Vital Few
+        $topItem = $pareto['items'][0] ?? null;
+        $dominantDefect = $topItem ? [
+            'code' => $topItem['defect_code'],
+            'name' => $topItem['defect_name'],
+            'percentage' => $topItem['percentage'],
+            'count' => $topItem['count'],
+            'severity' => $topItem['severity'],
+        ] : null;
+
+        // 3. SPC Process Control Status
+        $outOfControlPoints = collect($spc['points'] ?? [])->filter(fn ($p) => ! empty($p['out_of_control']));
+        $outCount = $outOfControlPoints->count();
+        $isInControl = $outCount === 0;
+
+        $controlStatus = [
+            'is_in_control' => $isInControl,
+            'label' => $isInControl ? 'Terkendali (In Control)' : 'Di Luar Kendali (Out of Control)',
+            'badge_color' => $isInControl ? 'bg-emerald-100 text-emerald-800 border-emerald-300' : 'bg-rose-100 text-rose-800 border-rose-300',
+            'out_of_control_count' => $outCount,
+            'note' => $isInControl
+                ? 'Seluruh variasi proporsi cacat per batch berada di dalam batas kendali Upper Control Limit (UCL) dan Lower Control Limit (LCL).'
+                : "Terdeteksi {$outCount} lot produksi dengan proporsi cacat melampaui batas kendali (UCL/LCL). Wajib dilakukan Tindakan Korektif (CAPA).",
+        ];
+
+        // 4. Actionable Recommendations
+        $recommendations = [];
+        if ($dominantDefect) {
+            $recommendations[] = "Prioritaskan tindakan perbaikan pada cacat dominan '{$dominantDefect['name']}' yang menyumbang {$dominantDefect['percentage']}% dari seluruh kegagalan mutu.";
+        }
+        if (! $isInControl) {
+            $recommendations[] = "Segera buat tiket CAPA untuk {$outCount} lot produksi yang statusnya Out of Control untuk menginvestigasi akar masalah 5M+1E pada mesin stamping press.";
+        } else {
+            $recommendations[] = 'Pertahankan konsistensi parameter operasional mesin stamping press dan lakukan audit CTQ berkala.';
+        }
+
+        return [
+            'sigma_eval' => $sigmaEval,
+            'dominant_defect' => $dominantDefect,
+            'control_status' => $controlStatus,
+            'recommendations' => $recommendations,
+        ];
+    }
 }
