@@ -19,6 +19,9 @@ class QualityInspection extends Model
         'production_batch_id',
         'inspector_id',
         'inspection_time',
+        'inspection_year',
+        'inspection_month',
+        'inspection_week',
         'inspection_stage',
         'sample_size_inspected',
         'passed_qty',
@@ -35,6 +38,9 @@ class QualityInspection extends Model
 
     protected $casts = [
         'inspection_time' => 'datetime',
+        'inspection_year' => 'integer',
+        'inspection_month' => 'integer',
+        'inspection_week' => 'integer',
         'inspection_stage' => InspectionStage::class,
         'result_status' => InspectionResult::class,
         'sample_size_inspected' => 'integer',
@@ -47,6 +53,38 @@ class QualityInspection extends Model
         'sigma_level' => 'decimal:2',
         'yield_percentage' => 'decimal:2',
     ];
+
+    public function getPeriodLabelAttribute(): string
+    {
+        $months = [
+            1 => 'Januari', 2 => 'Februari', 3 => 'Maret', 4 => 'April',
+            5 => 'Mei', 6 => 'Juni', 7 => 'Juli', 8 => 'Agustus',
+            9 => 'September', 10 => 'Oktober', 11 => 'November', 12 => 'Desember',
+        ];
+
+        $month = $this->inspection_month ?? $this->inspection_time?->month;
+        $week = $this->inspection_week ?? ($this->inspection_time ? min(4, (int) ceil($this->inspection_time->day / 7)) : 1);
+        $year = $this->inspection_year ?? ($this->inspection_time ? $this->inspection_time->year : now()->year);
+        $monthName = $months[$month] ?? '';
+
+        return "Bulan {$monthName} {$year} (Minggu ke-{$week})";
+    }
+
+    public function getPeriodShortLabelAttribute(): string
+    {
+        $months = [
+            1 => 'Jan', 2 => 'Feb', 3 => 'Mar', 4 => 'Apr',
+            5 => 'Mei', 6 => 'Jun', 7 => 'Jul', 8 => 'Agt',
+            9 => 'Sep', 10 => 'Okt', 11 => 'Nov', 12 => 'Des',
+        ];
+
+        $month = $this->inspection_month ?? $this->inspection_time?->month;
+        $week = $this->inspection_week ?? ($this->inspection_time ? min(4, (int) ceil($this->inspection_time->day / 7)) : 1);
+        $year = $this->inspection_year ?? ($this->inspection_time ? $this->inspection_time->year : now()->year);
+        $monthName = $months[$month] ?? '';
+
+        return "{$monthName} {$year} (M{$week})";
+    }
 
     public function productionBatch(): BelongsTo
     {

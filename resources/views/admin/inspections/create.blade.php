@@ -89,29 +89,81 @@
                 </div>
             </div>
 
-            <!-- Section 2: Sampling Parameters -->
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 p-4 bg-slate-50 rounded-xl border border-slate-100">
-                <div>
-                    <label class="block text-xs font-semibold text-slate-700 mb-1">Ukuran Sampel Diperiksa (N) <span class="text-rose-500">*</span></label>
-                    <input type="number" name="sample_size_inspected" x-model.number="sampleSize" @input="recalculate()" min="1" required 
-                           class="w-full text-xs rounded-lg border-slate-200 focus:border-emerald-500 focus:ring-emerald-500 bg-white">
-                    <span class="text-[10px] text-slate-400 mt-1 block">Total unit sampel fisik yang diuji</span>
-                    @error('sample_size_inspected') <span class="text-[11px] text-rose-500">{{ $message }}</span> @enderror
+            <!-- Section 2: Sampling Parameters & Inspection Period -->
+            <div class="p-4 bg-slate-50 rounded-xl border border-slate-100 space-y-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Ukuran Sampel Diperiksa (N) <span class="text-rose-500">*</span></label>
+                        <input type="number" name="sample_size_inspected" x-model.number="sampleSize" @input="recalculate()" min="1" required 
+                               class="w-full text-xs rounded-lg border-slate-200 focus:border-emerald-500 focus:ring-emerald-500 bg-white">
+                        <span class="text-[10px] text-slate-400 mt-1 block">Total unit sampel fisik yang diuji</span>
+                        @error('sample_size_inspected') <span class="text-[11px] text-rose-500">{{ $message }}</span> @enderror
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Jumlah Unit Ditemukan Cacat <span class="text-rose-500">*</span></label>
+                        <input type="number" name="defective_units_qty" x-model.number="defectiveUnits" @input="recalculate()" min="0" :max="sampleSize" required 
+                               class="w-full text-xs rounded-lg border-slate-200 focus:border-emerald-500 focus:ring-emerald-500 bg-white">
+                        <span class="text-[10px] text-slate-400 mt-1 block">Jumlah unit fisik yang tidak lolos QC</span>
+                        @error('defective_units_qty') <span class="text-[11px] text-rose-500">{{ $message }}</span> @enderror
+                    </div>
                 </div>
 
-                <div>
-                    <label class="block text-xs font-semibold text-slate-700 mb-1">Jumlah Unit Ditemukan Cacat <span class="text-rose-500">*</span></label>
-                    <input type="number" name="defective_units_qty" x-model.number="defectiveUnits" @input="recalculate()" min="0" :max="sampleSize" required 
-                           class="w-full text-xs rounded-lg border-slate-200 focus:border-emerald-500 focus:ring-emerald-500 bg-white">
-                    <span class="text-[10px] text-slate-400 mt-1 block">Jumlah unit fisik yang tidak lolos QC</span>
-                    @error('defective_units_qty') <span class="text-[11px] text-rose-500">{{ $message }}</span> @enderror
-                </div>
+                <!-- Waktu Pemeriksaan: Bulan & Minggu (1-4) -->
+                <div class="border-t border-slate-200/60 pt-3">
+                    <div class="flex items-center justify-between mb-2">
+                        <label class="block text-xs font-bold text-slate-800 uppercase tracking-wider">
+                            Waktu Pemeriksaan (Periode QC) <span class="text-rose-500">*</span>
+                        </label>
+                        <span class="text-[11px] text-slate-400">Pilih bulan dan minggu pelaksanaan inspeksi</span>
+                    </div>
 
-                <div>
-                    <label class="block text-xs font-semibold text-slate-700 mb-1">Waktu Pemeriksaan <span class="text-rose-500">*</span></label>
-                    <input type="datetime-local" name="inspection_time" value="{{ old('inspection_time', now()->format('Y-m-d\TH:i')) }}" required 
-                           class="w-full text-xs rounded-lg border-slate-200 focus:border-emerald-500 focus:ring-emerald-500 bg-white">
-                    @error('inspection_time') <span class="text-[11px] text-rose-500">{{ $message }}</span> @enderror
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-[11px] font-medium text-slate-600 mb-1">Tahun <span class="text-rose-500">*</span></label>
+                            <select name="inspection_year" class="w-full text-xs rounded-lg border-slate-200 focus:border-emerald-500 focus:ring-emerald-500 bg-white" required>
+                                @foreach(range(now()->year - 1, now()->year + 1) as $yr)
+                                    <option value="{{ $yr }}" {{ old('inspection_year', now()->year) == $yr ? 'selected' : '' }}>
+                                        {{ $yr }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('inspection_year') <span class="text-[11px] text-rose-500">{{ $message }}</span> @enderror
+                        </div>
+
+                        <div>
+                            <label class="block text-[11px] font-medium text-slate-600 mb-1">Bulan Pemeriksaan <span class="text-rose-500">*</span></label>
+                            <select name="inspection_month" class="w-full text-xs rounded-lg border-slate-200 focus:border-emerald-500 focus:ring-emerald-500 bg-white" required>
+                                @php
+                                    $monthList = [
+                                        1 => 'Januari', 2 => 'Februari', 3 => 'Maret', 4 => 'April',
+                                        5 => 'Mei', 6 => 'Juni', 7 => 'Juli', 8 => 'Agustus',
+                                        9 => 'September', 10 => 'Oktober', 11 => 'November', 12 => 'Desember'
+                                    ];
+                                @endphp
+                                @foreach($monthList as $mNum => $mName)
+                                    <option value="{{ $mNum }}" {{ old('inspection_month', now()->month) == $mNum ? 'selected' : '' }}>
+                                        {{ $mName }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('inspection_month') <span class="text-[11px] text-rose-500">{{ $message }}</span> @enderror
+                        </div>
+
+                        <div>
+                            <label class="block text-[11px] font-medium text-slate-600 mb-1">Pilihan Minggu Keberapa (1-4) <span class="text-rose-500">*</span></label>
+                            <select name="inspection_week" class="w-full text-xs rounded-lg border-slate-200 focus:border-emerald-500 focus:ring-emerald-500 bg-white" required>
+                                @php
+                                    $curWeek = min(4, (int) ceil(now()->day / 7));
+                                @endphp
+                                <option value="1" {{ old('inspection_week', $curWeek) == 1 ? 'selected' : '' }}>Minggu ke-1 (Hari 1 - 7)</option>
+                                <option value="2" {{ old('inspection_week', $curWeek) == 2 ? 'selected' : '' }}>Minggu ke-2 (Hari 8 - 14)</option>
+                                <option value="3" {{ old('inspection_week', $curWeek) == 3 ? 'selected' : '' }}>Minggu ke-3 (Hari 15 - 21)</option>
+                                <option value="4" {{ old('inspection_week', $curWeek) == 4 ? 'selected' : '' }}>Minggu ke-4 (Hari 22 - 28/31)</option>
+                            </select>
+                            @error('inspection_week') <span class="text-[11px] text-rose-500">{{ $message }}</span> @enderror
+                        </div>
+                    </div>
                 </div>
             </div>
 

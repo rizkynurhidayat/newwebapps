@@ -104,7 +104,10 @@
                 <span class="font-medium text-slate-900">{{ $inspection->inspector?->name }}</span>
 
                 <span class="text-slate-500">Waktu Pemeriksaan:</span>
-                <span class="text-slate-700">{{ $inspection->inspection_time?->format('d F Y, H:i') }} WIB</span>
+                <span class="text-slate-800 font-medium">
+                    {{ $inspection->period_label }}
+                    <span class="text-[11px] text-slate-400 block font-normal">{{ $inspection->inspection_time?->format('d F Y, H:i') }} WIB</span>
+                </span>
 
                 <span class="text-slate-500">Tahap Inspeksi:</span>
                 <span class="font-medium text-slate-900">{{ $inspection->inspection_stage?->label() }}</span>

@@ -73,10 +73,11 @@
                 <tbody class="divide-y divide-slate-100 text-xs">
                     @forelse($inspections as $ins)
                         <tr class="hover:bg-slate-50/80 transition-colors">
-                            <td class="py-3 px-4 font-mono font-bold text-slate-900">
-                                <a href="{{ route('admin.inspections.show', $ins) }}" class="text-emerald-600 hover:underline">
+                            <td class="py-3 px-4 font-mono">
+                                <a href="{{ route('admin.inspections.show', $ins) }}" class="font-bold text-slate-900 text-emerald-600 hover:underline block">
                                     {{ $ins->inspection_number }}
                                 </a>
+                                <span class="text-[11px] font-sans text-slate-400 font-normal block">{{ $ins->period_short_label }}</span>
                             </td>
                             <td class="py-3 px-4 font-mono font-medium text-slate-700">
                                 <a href="{{ route('admin.batches.show', $ins->productionBatch) }}" class="hover:underline">

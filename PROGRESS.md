@@ -26,6 +26,7 @@ Dokumen ini mencatat seluruh kemajuan pengerjaan proyek secara berkala, rinci, d
 | **FE/BE**| **Fase 11**| Konteks Bracket Seat Leg Mobil, 5 CTQ, Skema DB & Kesimpulan Flowchart | ✅ Selesai | 2026-09-27 15:44 |
 | **FE/BE**| **Fase 12**| Modul Analisa Resiko Kerja Mesin Stamping Press (Poin 4-6 Skripsi) | ✅ Selesai | 2026-09-27 15:46 |
 | **FE/BE**| **Fase 13**| Pengetatan Hak Akses Peran (RBAC) & Modul Manajemen Pengguna Super Admin | ✅ Selesai | 2026-09-27 16:25 |
+| **FE/BE**| **Fase 14**| Input Pemeriksaan QC Berbasis Dropdown Bulan & Pilihan Minggu (1-4) | ✅ Selesai | 2026-10-04 23:45 |
 
 *Keterangan Status: ⏳ Menunggu | 🔄 In Progress | ✅ Selesai | ⚠️ Perlu Review*
 
@@ -94,6 +95,15 @@ Dokumen ini mencatat seluruh kemajuan pengerjaan proyek secara berkala, rinci, d
   - Pembaruan tampilan badge di seluruh tabel modul (`defects`, `inspections`, `batches`, `capa`, `risks`, `products`, `lines`, `users`, `dashboard`, `analytics`).
   - Kompilasi ulang aset Vite & Tailwind CSS v4 (`npm.cmd run build`) dan verifikasi 33 tests lolos 100%.
 
+### [Fase 14] Input Pemeriksaan QC Berbasis Dropdown Bulan & Pilihan Minggu (1-4) — ✅ Selesai
+- [x] **Step 14.1**: Migrasi database `add_period_columns_to_quality_inspections_table` untuk menambahkan kolom `inspection_year`, `inspection_month`, dan `inspection_week`.
+- [x] **Step 14.2**: Model `QualityInspection`: update `$fillable`, `$casts`, serta penambahan accessor `period_label` dan `period_short_label`.
+- [x] **Step 14.3**: Form Request `StoreQualityInspectionRequest`: implementasi `prepareForValidation()` untuk konversi otomatis bulan & minggu ke tanggal Carbon `inspection_time`, serta validasi rentang bulan 1-12 dan minggu 1-4.
+- [x] **Step 14.4**: `ProductionService::recordInspection`: penyimpanan otomatis atribut periode `inspection_year`, `inspection_month`, dan `inspection_week` ke database.
+- [x] **Step 14.5**: Antarmuka Blade `resources/views/admin/inspections/create.blade.php`: mengganti input `datetime-local` dengan Dropdown Bulan (Januari-Desember), Pilihan Minggu (Minggu ke-1 s/d ke-4), dan Dropdown Tahun.
+- [x] **Step 14.6**: Antarmuka Blade `resources/views/admin/inspections/show.blade.php`, `index.blade.php`, dan `batches/show.blade.php`: menyajikan label periode ramah pengguna (*user-friendly period badge*).
+- [x] **Step 14.7**: Pembuatan Automated Test `tests/Feature/QualityInspectionPeriodTest.php`: 4 uji fitur periode lulus 100%. Seluruh test suite (37 tests, 168 assertions) lulus 100%.
+
 ---
 
 ## 📌 Log Riwayat Aktivitas & Perubahan
@@ -112,3 +122,4 @@ Dokumen ini mencatat seluruh kemajuan pengerjaan proyek secara berkala, rinci, d
 | 2026-09-27 16:25 | Fase 13 / Implementasi | Pembuatan `StoreUserRequest`, `UpdateUserRequest`, `UserController`, view `users/index, create, edit`, pembaruan sidebar dan tombol aksi per halaman, pembuatan `403.blade.php`, dan rute RBAC strict. | RBAC aktif pada layer UI & middleware. |
 | 2026-09-27 16:30 | Fase 13 / Verifikasi | Pembuatan `RolePermissionTest.php`, eksekusi seluruh test suite, formatting Pint, Vite build, dan update `PANDUAN_PENGGUNAAN.md`. | 33 Pest feature tests lulus 100% (142 assertions). Aset terkompilasi tanpa error. |
 | 2026-09-27 16:41 | Fase 13 / UI Contrast Polish | Peningkatan kontras warna lencana (badge) dan penggelapan warna teks (`text-*-950`) pada kolom Status, Keparahan, dan Kategori 5M+1E di seluruh tabel. | Teks badge jauh lebih kontras, tajam, dan mudah dibaca (WCAG AAA). 33 tests lulus 100%. |
+| 2026-10-04 23:45 | Fase 14 / QC Inspection Period | Implementasi input Waktu Pemeriksaan berbasis Dropdown Bulan dan Pilihan Minggu (1-4), migrasi tabel `quality_inspections`, accessor period, view updates, and Pest feature tests. | 37 Pest feature tests lulus 100% (168 assertions). Pint passed. |

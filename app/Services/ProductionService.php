@@ -123,11 +123,19 @@ class ProductionService
                 default => InspectionResult::Rejected,
             };
 
+            $inspectionTime = isset($data['inspection_time']) ? Carbon::parse($data['inspection_time']) : now();
+            $inspectionYear = isset($data['inspection_year']) ? (int) $data['inspection_year'] : $inspectionTime->year;
+            $inspectionMonth = isset($data['inspection_month']) ? (int) $data['inspection_month'] : $inspectionTime->month;
+            $inspectionWeek = isset($data['inspection_week']) ? (int) $data['inspection_week'] : min(4, (int) ceil($inspectionTime->day / 7));
+
             $inspection = QualityInspection::create([
                 'inspection_number' => $this->generateInspectionNumber(),
                 'production_batch_id' => $batch->id,
                 'inspector_id' => $data['inspector_id'],
-                'inspection_time' => $data['inspection_time'] ?? now(),
+                'inspection_time' => $inspectionTime,
+                'inspection_year' => $inspectionYear,
+                'inspection_month' => $inspectionMonth,
+                'inspection_week' => $inspectionWeek,
                 'inspection_stage' => $data['inspection_stage'] ?? 'in_process',
                 'sample_size_inspected' => $sampleSize,
                 'passed_qty' => $passedQty,

@@ -98,7 +98,7 @@
                                     {{ $ins->inspection_number }}
                                 </a>
                             </td>
-                            <td class="py-3 px-4 text-slate-600">{{ $ins->inspection_time?->format('d/m/Y H:i') }}</td>
+                            <td class="py-3 px-4 text-slate-600">{{ $ins->period_short_label ?? $ins->inspection_time?->format('d/m/Y H:i') }}</td>
                             <td class="py-3 px-4">{{ $ins->inspection_stage?->label() }}</td>
                             <td class="py-3 px-4 font-mono font-medium">{{ $ins->sample_size_inspected }}</td>
                             <td class="py-3 px-4 font-mono">
