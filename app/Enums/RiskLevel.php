@@ -22,10 +22,10 @@ enum RiskLevel: string
     public function badgeColor(): string
     {
         return match ($this) {
-            self::Low => 'bg-emerald-100 text-emerald-800 border-emerald-300 dark:bg-emerald-900/30 dark:text-emerald-300',
-            self::Medium => 'bg-amber-100 text-amber-800 border-amber-300 dark:bg-amber-900/30 dark:text-amber-300',
-            self::High => 'bg-orange-100 text-orange-800 border-orange-300 dark:bg-orange-900/30 dark:text-orange-300',
-            self::Extreme => 'bg-rose-100 text-rose-800 border-rose-300 dark:bg-rose-900/30 dark:text-rose-300 font-bold',
+            self::Low => 'bg-emerald-100 text-emerald-950 border border-emerald-400 font-bold dark:bg-emerald-950 dark:text-emerald-100 dark:border-emerald-700',
+            self::Medium => 'bg-amber-100 text-amber-950 border border-amber-400 font-bold dark:bg-amber-950 dark:text-amber-100 dark:border-amber-700',
+            self::High => 'bg-orange-100 text-orange-950 border border-orange-400 font-bold dark:bg-orange-950 dark:text-orange-100 dark:border-orange-700',
+            self::Extreme => 'bg-rose-100 text-rose-950 border border-rose-400 font-bold dark:bg-rose-950 dark:text-rose-100 dark:border-rose-700',
         };
     }
 

@@ -6,7 +6,7 @@
         <div>
             <div class="flex items-center space-x-3">
                 <h1 class="text-2xl font-bold tracking-tight text-slate-900">{{ $batch->batch_number }}</h1>
-                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $batch->status->badgeColor() }}">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold shadow-xs {{ $batch->status->badgeColor() }}">
                     {{ $batch->status->label() }}
                 </span>
             </div>

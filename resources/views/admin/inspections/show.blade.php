@@ -6,7 +6,7 @@
         <div>
             <div class="flex items-center space-x-3">
                 <h1 class="text-2xl font-bold tracking-tight text-slate-900">{{ $inspection->inspection_number }}</h1>
-                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold border {{ $inspection->result_status->badgeColor() }}">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold shadow-xs {{ $inspection->result_status->badgeColor() }}">
                     {{ $inspection->result_status->label() }}
                 </span>
             </div>
@@ -150,13 +150,13 @@
                             <td class="py-3 px-4 font-mono font-bold text-slate-900">{{ $defect->defectType?->code }}</td>
                             <td class="py-3 px-4 font-medium text-slate-900">{{ $defect->defectType?->name }}</td>
                             <td class="py-3 px-4">
-                                <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] {{ $defect->defectType?->severity->badgeColor() }}">
+                                <span class="inline-flex items-center px-2.5 py-1 rounded-md text-[11px] font-bold shadow-xs {{ $defect->defectType?->severity->badgeColor() }}">
                                     {{ $defect->defectType?->severity->label() }}
                                 </span>
                             </td>
                             <td class="py-3 px-4 font-mono font-bold text-rose-600">{{ $defect->defect_qty }} unit</td>
                             <td class="py-3 px-4">
-                                <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] {{ $defect->root_cause_category->badgeColor() }}">
+                                <span class="inline-flex items-center px-2.5 py-1 rounded-md text-[11px] font-bold shadow-xs {{ $defect->root_cause_category->badgeColor() }}">
                                     {{ $defect->root_cause_category->label() }}
                                 </span>
                             </td>

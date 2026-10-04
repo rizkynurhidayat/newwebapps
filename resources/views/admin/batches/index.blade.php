@@ -104,7 +104,7 @@
                                 @endif
                             </td>
                             <td class="py-3 px-4">
-                                <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium {{ $b->status->badgeColor() }}">
+                                <span class="inline-flex items-center px-2.5 py-1 rounded-md text-[11px] font-bold shadow-xs {{ $b->status->badgeColor() }}">
                                     {{ $b->status->label() }}
                                 </span>
                             </td>

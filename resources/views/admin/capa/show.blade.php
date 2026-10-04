@@ -6,7 +6,7 @@
         <div>
             <div class="flex items-center space-x-3">
                 <h1 class="text-2xl font-bold tracking-tight text-slate-900">{{ $capa->capa_number }}</h1>
-                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold {{ $capa->status->badgeColor() }}">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold shadow-xs {{ $capa->status->badgeColor() }}">
                     {{ $capa->status->label() }}
                 </span>
             </div>
@@ -35,12 +35,16 @@
                 <span class="font-bold text-slate-900">[{{ $capa->defectType?->code }}] {{ $capa->defectType?->name }}</span>
             </div>
             <div>
-                <span class="text-slate-400 block font-medium">Kategori Keparahan:</span>
-                <span class="font-bold uppercase text-slate-900">{{ $capa->defectType?->severity->value }}</span>
+                <span class="text-slate-400 block font-medium mb-1">Kategori Keparahan:</span>
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded text-[11px] font-bold shadow-xs {{ $capa->defectType?->severity->badgeColor() }}">
+                    {{ $capa->defectType?->severity->label() }}
+                </span>
             </div>
             <div>
-                <span class="text-slate-400 block font-medium">Kategori 5M+1E:</span>
-                <span class="font-bold text-slate-900">{{ $capa->defectType?->default_5m_category->label() }}</span>
+                <span class="text-slate-400 block font-medium mb-1">Kategori 5M+1E:</span>
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded text-[11px] font-bold shadow-xs {{ $capa->defectType?->default_5m_category->badgeColor() }}">
+                    {{ $capa->defectType?->default_5m_category->label() }}
+                </span>
             </div>
         </div>
 

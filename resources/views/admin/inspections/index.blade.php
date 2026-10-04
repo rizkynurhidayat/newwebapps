@@ -94,13 +94,13 @@
                             </td>
                             <td class="py-3 px-4 font-mono font-medium">{{ number_format($ins->dpmo, 0, ',', '.') }}</td>
                             <td class="py-3 px-4">
-                                <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-bold font-mono {{ $ins->sigma_level >= 4.0 ? 'bg-emerald-100 text-emerald-800' : ($ins->sigma_level >= 3.0 ? 'bg-amber-100 text-amber-800' : 'bg-rose-100 text-rose-800') }}">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded text-[11px] font-bold font-mono {{ $ins->sigma_level >= 4.0 ? 'bg-emerald-100 text-emerald-950 border border-emerald-300' : ($ins->sigma_level >= 3.0 ? 'bg-amber-100 text-amber-950 border border-amber-300' : 'bg-rose-100 text-rose-950 border border-rose-300') }}">
                                     {{ $ins->sigma_level }} &sigma;
                                 </span>
                             </td>
                             <td class="py-3 px-4 font-bold font-mono text-slate-900">{{ $ins->yield_percentage }}%</td>
                             <td class="py-3 px-4">
-                                <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium border {{ $ins->result_status->badgeColor() }}">
+                                <span class="inline-flex items-center px-2.5 py-1 rounded-md text-[11px] font-bold shadow-xs {{ $ins->result_status->badgeColor() }}">
                                     {{ $ins->result_status->label() }}
                                 </span>
                             </td>

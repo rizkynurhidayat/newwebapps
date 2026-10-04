@@ -78,12 +78,12 @@
                             </td>
                             <td class="py-3 px-4 text-slate-600 font-medium">{{ $type->defectCategory?->name ?? '-' }}</td>
                             <td class="py-3 px-4">
-                                <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] {{ $type->severity->badgeColor() }}">
+                                <span class="inline-flex items-center px-2.5 py-1 rounded-md text-[11px] font-bold shadow-xs {{ $type->severity->badgeColor() }}">
                                     {{ $type->severity->label() }}
                                 </span>
                             </td>
                             <td class="py-3 px-4">
-                                <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] {{ $type->default_5m_category->badgeColor() }}">
+                                <span class="inline-flex items-center px-2.5 py-1 rounded-md text-[11px] font-bold shadow-xs {{ $type->default_5m_category->badgeColor() }}">
                                     {{ $type->default_5m_category->label() }}
                                 </span>
                             </td>

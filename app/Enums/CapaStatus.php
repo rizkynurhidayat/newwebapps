@@ -24,11 +24,11 @@ enum CapaStatus: string
     public function badgeColor(): string
     {
         return match ($this) {
-            self::Open => 'bg-rose-100 text-rose-800 dark:bg-rose-900/30 dark:text-rose-300',
-            self::InProgress => 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300',
-            self::Implemented => 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300',
-            self::Verified => 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300',
-            self::Closed => 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300',
+            self::Open => 'bg-rose-100 text-rose-950 border border-rose-300 font-bold dark:bg-rose-950 dark:text-rose-100 dark:border-rose-700',
+            self::InProgress => 'bg-amber-100 text-amber-950 border border-amber-300 font-bold dark:bg-amber-950 dark:text-amber-100 dark:border-amber-700',
+            self::Implemented => 'bg-blue-100 text-blue-950 border border-blue-300 font-bold dark:bg-blue-950 dark:text-blue-100 dark:border-blue-700',
+            self::Verified => 'bg-purple-100 text-purple-950 border border-purple-300 font-bold dark:bg-purple-950 dark:text-purple-100 dark:border-purple-700',
+            self::Closed => 'bg-emerald-100 text-emerald-950 border border-emerald-300 font-bold dark:bg-emerald-950 dark:text-emerald-100 dark:border-emerald-700',
         };
     }
 }

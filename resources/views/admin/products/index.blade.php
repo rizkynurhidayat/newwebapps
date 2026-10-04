@@ -71,14 +71,14 @@
                                 <div class="text-[11px] text-slate-400 truncate max-w-xs">{{ $product->description }}</div>
                             </td>
                             <td class="py-3 px-4">
-                                <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-200">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-indigo-100 text-indigo-950 border border-indigo-300">
                                     {{ $product->defect_opportunities_per_unit }} titik CTQ
                                 </span>
                             </td>
                             <td class="py-3 px-4 font-mono">{{ $product->standard_cycle_time ? $product->standard_cycle_time.' detik' : '-' }}</td>
                             <td class="py-3 px-4 font-mono font-medium">{{ $product->production_batches_count }} lot</td>
                             <td class="py-3 px-4">
-                                <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium {{ $product->is_active ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-100 text-slate-600' }}">
+                                <span class="inline-flex items-center px-2.5 py-1 rounded-md text-[11px] font-bold border {{ $product->is_active ? 'bg-emerald-100 text-emerald-950 border-emerald-300' : 'bg-rose-100 text-rose-950 border-rose-300' }}">
                                     {{ $product->is_active ? 'Aktif' : 'Nonaktif' }}
                                 </span>
                             </td>

@@ -136,7 +136,7 @@
                                 {{ $item['defect_name'] }}
                             </td>
                             <td class="py-2.5 px-3">
-                                <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] {{ $item['severity'] === 'critical' ? 'bg-rose-100 text-rose-800' : ($item['severity'] === 'major' ? 'bg-amber-100 text-amber-800' : 'bg-sky-100 text-sky-800') }}">
+                                <span class="inline-flex items-center px-2.5 py-1 rounded-md text-[11px] font-bold shadow-xs {{ $item['severity'] === 'critical' ? 'bg-rose-100 text-rose-950 border border-rose-300' : ($item['severity'] === 'major' ? 'bg-amber-100 text-amber-950 border border-amber-300' : 'bg-sky-100 text-sky-950 border border-sky-300') }}">
                                     {{ ucfirst($item['severity']) }}
                                 </span>
                             </td>
@@ -147,11 +147,11 @@
                             </td>
                             <td class="py-2.5 px-3">
                                 @if($item['is_vital_few'])
-                                    <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-900 border border-amber-300">
+                                    <span class="inline-flex items-center px-2.5 py-1 rounded-md text-[11px] font-bold bg-amber-100 text-amber-950 border border-amber-400">
                                         Vital Few (Prioritas 80%)
                                     </span>
                                 @else
-                                    <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-slate-100 text-slate-600">
+                                    <span class="inline-flex items-center px-2.5 py-1 rounded-md text-[11px] font-bold bg-slate-100 text-slate-900 border border-slate-300">
                                         Trivial Many
                                     </span>
                                 @endif

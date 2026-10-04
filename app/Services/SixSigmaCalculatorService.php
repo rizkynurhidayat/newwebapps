@@ -283,25 +283,25 @@ class SixSigmaCalculatorService
             $avgSigma >= 6.0 => [
                 'level' => $avgSigma,
                 'category' => 'Kelas Dunia (World Class)',
-                'badge_color' => 'bg-emerald-100 text-emerald-800 border-emerald-300',
+                'badge_color' => 'bg-emerald-100 text-emerald-950 border border-emerald-300 font-bold',
                 'description' => 'Proses sangat presisi dengan probabilitas cacat sangat minim (<= 3.4 DPMO).',
             ],
             $avgSigma >= 4.0 => [
                 'level' => $avgSigma,
                 'category' => 'Standar Industri Baik (Competitive)',
-                'badge_color' => 'bg-blue-100 text-blue-800 border-blue-300',
+                'badge_color' => 'bg-blue-100 text-blue-950 border border-blue-300 font-bold',
                 'description' => 'Kualitas memenuhi standar industri komponen otomotif. Pertahankan kestabilan.',
             ],
             $avgSigma >= 3.0 => [
                 'level' => $avgSigma,
                 'category' => 'Cukup / Perlu Pengendalian (Acceptable)',
-                'badge_color' => 'bg-amber-100 text-amber-800 border-amber-300',
+                'badge_color' => 'bg-amber-100 text-amber-950 border border-amber-300 font-bold',
                 'description' => 'Tingkat cacat masih berada dalam batas toleransi namun rentan terhadap fluktuasi proses.',
             ],
             default => [
                 'level' => $avgSigma,
                 'category' => 'Kritis / Butuh Perbaikan Segera (Critical)',
-                'badge_color' => 'bg-rose-100 text-rose-800 border-rose-300',
+                'badge_color' => 'bg-rose-100 text-rose-950 border border-rose-300 font-bold',
                 'description' => 'Tingkat kegagalan tinggi (< 3.0 Sigma). Tindakan korektif darurat wajib diprioritaskan.',
             ],
         };
@@ -324,7 +324,7 @@ class SixSigmaCalculatorService
         $controlStatus = [
             'is_in_control' => $isInControl,
             'label' => $isInControl ? 'Terkendali (In Control)' : 'Di Luar Kendali (Out of Control)',
-            'badge_color' => $isInControl ? 'bg-emerald-100 text-emerald-800 border-emerald-300' : 'bg-rose-100 text-rose-800 border-rose-300',
+            'badge_color' => $isInControl ? 'bg-emerald-100 text-emerald-950 border border-emerald-300 font-bold' : 'bg-rose-100 text-rose-950 border border-rose-300 font-bold',
             'out_of_control_count' => $outCount,
             'note' => $isInControl
                 ? 'Seluruh variasi proporsi cacat per batch berada di dalam batas kendali Upper Control Limit (UCL) dan Lower Control Limit (LCL).'

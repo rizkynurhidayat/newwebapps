@@ -75,7 +75,7 @@
                             <td class="py-3 px-4 font-medium text-slate-800">{{ $capa->assignedTo?->name ?? '-' }}</td>
                             <td class="py-3 px-4 font-mono text-slate-600">{{ $capa->target_completion_date?->format('d/m/Y') }}</td>
                             <td class="py-3 px-4">
-                                <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium {{ $capa->status->badgeColor() }}">
+                                <span class="inline-flex items-center px-2.5 py-1 rounded-md text-[11px] font-bold shadow-xs {{ $capa->status->badgeColor() }}">
                                     {{ $capa->status->label() }}
                                 </span>
                             </td>

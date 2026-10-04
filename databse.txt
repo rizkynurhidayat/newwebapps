@@ -1,0 +1,44 @@
+struktur database
+
+1. User 
+- id User (PK)
+- nama
+- pasword
+- email
+
+2. produk
+- id produk (PK)
+- part_no
+- nama produk
+- bahan baku
+
+3. produksi
+- id produksi (PK)
+- id produk (FK)
+- tanggal
+- tanggal
+- jumlah produksi
+
+4. p_chart 
+- id p_chart (PK)
+- idproduksi (FK)
+- proporsi_P
+- CL
+- UCL
+- LCL
+- status 
+
+5. perhitungan_sigma
+-id_hitung (PK)
+-id produksi (FK)
+-DPU
+-DPO
+-DPMO
+-yield
+-sigma level
+
+6. jenis cacat
+- id cacat (PK)
+- nama cacat
+- kode cacat
+

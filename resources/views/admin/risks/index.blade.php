@@ -81,24 +81,24 @@
             </div>
             <div class="grid grid-cols-4 gap-2 pt-1 text-center">
                 <div class="p-2.5 rounded-lg bg-emerald-50 border border-emerald-200">
-                    <span class="text-[10px] uppercase font-bold text-emerald-700 block">Rendah (1-4)</span>
-                    <span class="text-xl font-extrabold text-emerald-800 font-mono mt-0.5 block">{{ $summary['distribution']['low'] }}</span>
-                    <span class="text-[10px] text-emerald-600">Low</span>
+                    <span class="text-[10px] uppercase font-bold text-emerald-900 block">Rendah (1-4)</span>
+                    <span class="text-xl font-black text-emerald-950 font-mono mt-0.5 block">{{ $summary['distribution']['low'] }}</span>
+                    <span class="text-[10px] text-emerald-800 font-medium">Low</span>
                 </div>
                 <div class="p-2.5 rounded-lg bg-amber-50 border border-amber-200">
-                    <span class="text-[10px] uppercase font-bold text-amber-700 block">Sedang (5-9)</span>
-                    <span class="text-xl font-extrabold text-amber-800 font-mono mt-0.5 block">{{ $summary['distribution']['medium'] }}</span>
-                    <span class="text-[10px] text-amber-600">Medium</span>
+                    <span class="text-[10px] uppercase font-bold text-amber-900 block">Sedang (5-9)</span>
+                    <span class="text-xl font-black text-amber-950 font-mono mt-0.5 block">{{ $summary['distribution']['medium'] }}</span>
+                    <span class="text-[10px] text-amber-800 font-medium">Medium</span>
                 </div>
                 <div class="p-2.5 rounded-lg bg-orange-50 border border-orange-200">
-                    <span class="text-[10px] uppercase font-bold text-orange-700 block">Tinggi (10-15)</span>
-                    <span class="text-xl font-extrabold text-orange-800 font-mono mt-0.5 block">{{ $summary['distribution']['high'] }}</span>
-                    <span class="text-[10px] text-orange-600">High</span>
+                    <span class="text-[10px] uppercase font-bold text-orange-900 block">Tinggi (10-15)</span>
+                    <span class="text-xl font-black text-orange-950 font-mono mt-0.5 block">{{ $summary['distribution']['high'] }}</span>
+                    <span class="text-[10px] text-orange-800 font-medium">High</span>
                 </div>
                 <div class="p-2.5 rounded-lg bg-rose-50 border border-rose-200">
-                    <span class="text-[10px] uppercase font-bold text-rose-700 block">Ekstrem (16-25)</span>
-                    <span class="text-xl font-extrabold text-rose-800 font-mono mt-0.5 block">{{ $summary['distribution']['extreme'] }}</span>
-                    <span class="text-[10px] text-rose-600">Extreme</span>
+                    <span class="text-[10px] uppercase font-bold text-rose-900 block">Ekstrem (16-25)</span>
+                    <span class="text-xl font-black text-rose-950 font-mono mt-0.5 block">{{ $summary['distribution']['extreme'] }}</span>
+                    <span class="text-[10px] text-rose-800 font-medium">Extreme</span>
                 </div>
             </div>
         </div>
@@ -250,7 +250,7 @@
                                 </span>
                             </td>
                             <td class="py-3 px-4 text-center">
-                                <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] border {{ $risk->risk_level->badgeColor() }}">
+                                <span class="inline-flex items-center px-2.5 py-1 rounded-md text-[11px] font-bold shadow-xs border {{ $risk->risk_level->badgeColor() }}">
                                     {{ $risk->risk_level->label() }}
                                 </span>
                             </td>

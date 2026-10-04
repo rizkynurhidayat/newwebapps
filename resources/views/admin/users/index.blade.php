@@ -111,7 +111,7 @@
                                 </div>
                             </td>
                             <td class="py-3 px-4">
-                                <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-medium {{ $user->role->badgeColor() }}">
+                                <span class="inline-flex items-center px-2.5 py-1 rounded-md text-[11px] font-bold shadow-xs {{ $user->role->badgeColor() }}">
                                     {{ $user->role->label() }}
                                 </span>
                             </td>
@@ -123,14 +123,14 @@
                             </td>
                             <td class="py-3 px-4 text-center">
                                 @if($user->id === auth()->id())
-                                    <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800">
+                                    <span class="inline-flex items-center px-2.5 py-1 rounded-md text-[11px] font-bold bg-emerald-100 text-emerald-950 border border-emerald-300">
                                         Aktif (Sesi Ini)
                                     </span>
                                 @else
                                     <form method="POST" action="{{ route('admin.users.toggle-status', $user) }}" class="inline">
                                         @csrf
                                         @method('PATCH')
-                                        <button type="submit" class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold transition-colors {{ $user->is_active ? 'bg-emerald-100 text-emerald-800 hover:bg-rose-100 hover:text-rose-800' : 'bg-slate-100 text-slate-600 hover:bg-emerald-100 hover:text-emerald-800' }}" title="Klik untuk mengubah status">
+                                        <button type="submit" class="inline-flex items-center px-2.5 py-1 rounded-md text-[11px] font-bold transition-colors border {{ $user->is_active ? 'bg-emerald-100 text-emerald-950 border-emerald-300 hover:bg-rose-100 hover:text-rose-950 hover:border-rose-300' : 'bg-rose-100 text-rose-950 border-rose-300 hover:bg-emerald-100 hover:text-emerald-950 hover:border-emerald-300' }}" title="Klik untuk mengubah status">
                                             {{ $user->is_active ? 'Aktif' : 'Nonaktif' }}
                                         </button>
                                     </form>

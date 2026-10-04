@@ -89,6 +89,10 @@ Dokumen ini mencatat seluruh kemajuan pengerjaan proyek secara berkala, rinci, d
 - [x] **Step 13.5**: Halaman Kesalahan Khusus HTTP 403 (`resources/views/errors/403.blade.php`) dengan desain profesional dan tombol pengarah kembali ke Dashboard.
 - [x] **Step 13.6**: Pembuatan Automated Test `tests/Feature/RolePermissionTest.php`: 5 uji fitur skenario batas otorisasi & keamanan user management lulus 100%. Total test suite: 33 tests lulus 100% (142 assertions).
 - [x] **Step 13.7**: Pembaruan Manual Pengguna (`PANDUAN_PENGGUNAAN.md` Bagian 1 Matriks RBAC & Bagian 10 Panduan Manajemen Pengguna).
+- [x] **Step 13.8**: Peningkatan Kontras Warna & Tipografi Gelap pada Kolom Status, Keparahan (Severity), dan Kategori 5M+1E:
+  - Pembaruan Enums (`DefectSeverity`, `IshikawaCategory`, `InspectionResult`, `BatchStatus`, `CapaStatus`, `RiskLevel`, `UserRole`) menggunakan teks berkontras tinggi (`text-*-950` / `text-slate-900`), border tajam (`border-*-300` / `border-*-400`), dan `font-bold`.
+  - Pembaruan tampilan badge di seluruh tabel modul (`defects`, `inspections`, `batches`, `capa`, `risks`, `products`, `lines`, `users`, `dashboard`, `analytics`).
+  - Kompilasi ulang aset Vite & Tailwind CSS v4 (`npm.cmd run build`) dan verifikasi 33 tests lolos 100%.
 
 ---
 
@@ -107,3 +111,4 @@ Dokumen ini mencatat seluruh kemajuan pengerjaan proyek secara berkala, rinci, d
 | 2026-09-27 16:15 | Fase 13 / Persiapan | Perancangan rencana arsitektur pengetatan RBAC & modul Manajemen Pengguna via `rbac_and_user_management_plan.md`. | Disetujui oleh pengguna via `[Approved]`. |
 | 2026-09-27 16:25 | Fase 13 / Implementasi | Pembuatan `StoreUserRequest`, `UpdateUserRequest`, `UserController`, view `users/index, create, edit`, pembaruan sidebar dan tombol aksi per halaman, pembuatan `403.blade.php`, dan rute RBAC strict. | RBAC aktif pada layer UI & middleware. |
 | 2026-09-27 16:30 | Fase 13 / Verifikasi | Pembuatan `RolePermissionTest.php`, eksekusi seluruh test suite, formatting Pint, Vite build, dan update `PANDUAN_PENGGUNAAN.md`. | 33 Pest feature tests lulus 100% (142 assertions). Aset terkompilasi tanpa error. |
+| 2026-09-27 16:41 | Fase 13 / UI Contrast Polish | Peningkatan kontras warna lencana (badge) dan penggelapan warna teks (`text-*-950`) pada kolom Status, Keparahan, dan Kategori 5M+1E di seluruh tabel. | Teks badge jauh lebih kontras, tajam, dan mudah dibaca (WCAG AAA). 33 tests lulus 100%. |

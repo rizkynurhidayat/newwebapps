@@ -44,7 +44,7 @@
                             <td class="py-3 px-4 text-slate-600">{{ $line->location ?? '-' }}</td>
                             <td class="py-3 px-4 font-mono font-medium">{{ $line->production_batches_count }} lot</td>
                             <td class="py-3 px-4">
-                                <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium {{ $line->status === 'operational' ? 'bg-emerald-100 text-emerald-800' : ($line->status === 'maintenance' ? 'bg-amber-100 text-amber-800' : 'bg-slate-100 text-slate-600') }}">
+                                <span class="inline-flex items-center px-2.5 py-1 rounded-md text-[11px] font-bold border {{ $line->status === 'operational' ? 'bg-emerald-100 text-emerald-950 border-emerald-300' : ($line->status === 'maintenance' ? 'bg-amber-100 text-amber-950 border-amber-300' : 'bg-slate-100 text-slate-900 border-slate-300') }}">
                                     {{ ucfirst($line->status) }}
                                 </span>
                             </td>

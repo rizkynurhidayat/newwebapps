@@ -201,7 +201,7 @@
                                     </span>
                                 </td>
                                 <td class="py-3 px-4">
-                                    <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium border {{ $ins->result_status->badgeColor() }}">
+                                    <span class="inline-flex items-center px-2.5 py-1 rounded-md text-[11px] font-bold shadow-xs {{ $ins->result_status->badgeColor() }}">
                                         {{ $ins->result_status->label() }}
                                     </span>
                                 </td>
@@ -227,7 +227,7 @@
                     <div class="p-3 rounded-lg border border-slate-100 bg-slate-50/50 hover:bg-slate-50 transition-colors">
                         <div class="flex items-center justify-between">
                             <span class="font-mono text-xs font-bold text-slate-900">{{ $batch->batch_number }}</span>
-                            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium {{ $batch->status->badgeColor() }}">
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold shadow-xs {{ $batch->status->badgeColor() }}">
                                 {{ $batch->status->label() }}
                             </span>
                         </div>
